@@ -1,2 +1,17 @@
 [phases.setup]
-aptPkgs = ["libpq-dev", "libidn11-dev", "libxmlsec1-dev", "libxml2-dev", "libxslt1-dev"]
+aptPkgs = [
+  # Original packages for gems
+  "libpq-dev", 
+  "libidn11-dev", 
+  "libxmlsec1-dev", 
+  "libxml2-dev", 
+  "libxslt1-dev",
+  # Additional packages for building Ruby itself
+  "build-essential",
+  "libyaml-dev",
+  "libreadline-dev",
+  "zlib1g-dev",
+  "libncurses5-dev",
+  "libffi-dev",
+  "libgdbm-dev"
+]

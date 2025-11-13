@@ -1,17 +1,32 @@
+# System packages Canvas needs to build
 [phases.setup]
 aptPkgs = [
-  # Original packages for gems
-  "libpq-dev", 
-  "libidn11-dev", 
-  "libxmlsec1-dev", 
-  "libxml2-dev", 
-  "libxslt1-dev",
-  # Additional packages for building Ruby itself
-  "build-essential",
-  "libyaml-dev",
-  "libreadline-dev",
+  "ruby3.4",
+  "ruby3.4-dev",
   "zlib1g-dev",
+  "libxml2-dev",
+  "postgresql",
+  "libpq-dev",
+  "libxmlsec1-dev",
+  "libyaml-dev",
+  "libidn11-dev",
+  "build-essential",
+  "libreadline-dev",
   "libncurses5-dev",
   "libffi-dev",
-  "libgdbm-dev"
+  "libgdbm-dev",
+  "shared-mime-info",
+  "git-core",
 ]
+
+# Copy config files + compile assets (takes ~15 min)
+[phases.build]
+cmds = [
+  "cp config/database.yml.sevalla config/database.yml",
+  "cp config/redis.yml.sevalla config/redis.yml",
+  "RAILS_ENV=production bundle exec rake canvas:compile_assets",
+]
+
+# Production web server
+[start]
+cmd = "bundle exec puma -C config/puma.rb"
